@@ -76,7 +76,23 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        
+        if ($task->user_id !== auth()->id()) abort(403);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'priority' => 'required|in:low,medium,high',
+            'status' => 'required|in:todo,in_progress,done',
+            // 'deadline' => 'nullable|date',
+            'deadline' => 'nullable|date|after_or_equal:today',
+                ],[
+                'deadline.after_or_equal' => '"Deadline" déja passee !',
+                
+        ]);
+
+        $task->update($validated);
+
+        return redirect()->route('dashboard')->with('success', 'Tâche mise à jour !');
     }
 
     /**
