@@ -9,25 +9,39 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
-                <form action="{{ route('dashboard') }}" method="GET" class="flex-1 max-w-sm">
-                    <div class="relative">
-                        <input type="text" name="search" value="{{ request('search') }}"
-                            placeholder="Rechercher une mission..."
-                            class="w-full pl-10 pr-4 py-2 rounded-xl border-gray-300 focus:border-green-500 focus:ring focus:ring-green-200 transition">
-                        <div class="absolute left-3 top-2.5 text-gray-400">
-                            🔍
-                        </div>
-                        @if(request('search'))
-                        <a href="{{ route('dashboard') }}" class="absolute right-3 top-2 text-gray-400 hover:text-red-500">✖️</a>
-                        @endif
-                    </div>
-                </form>
 
-                <a href="{{ route('tasks.create') }}"
-                    style="background-color: #7CFC00;"
-                    class="hover:opacity-80 text-black font-bold py-2 px-4 rounded shadow">
-                    + Ajouter une tâche
-                </a>
+                <form action="{{ route('dashboard') }}" method="GET" class="w-full md:w-2/3">
+        <div class="flex items-center gap-3">
+            <div class="relative flex-1">
+                <input type="text" name="search" value="{{ request('search') }}" 
+                       placeholder="Rechercher une mission..." 
+                       class="w-full pl-10 pr-4 py-2.5 rounded-xl border-gray-300 focus:border-green-500 focus:ring focus:ring-green-200 transition shadow-sm">
+                <div class="absolute left-3 top-3 text-gray-400">
+                    🔍
+                </div>
+                @if(request('search'))
+                    <a href="{{ route('dashboard') }}" class="absolute right-3 top-2 text-gray-400 hover:text-red-500">
+                        ✖️
+                    </a>
+                @endif
+            </div>
+            
+            <button type="submit" 
+                    style="background-color: #7CFC00;" 
+                    class="px-6 py-2.5 rounded-xl text-black font-bold shadow-md hover:opacity-80 transition flex items-center shrink-0">
+                Chercher
+            </button>
+        </div>
+    </form>
+
+
+
+                <a href="{{ route('tasks.create') }}" 
+       style="background-color: #7CFC00;" 
+       class="inline-flex items-center justify-center hover:opacity-80 text-black font-bold py-2.5 my-2.5 px-6 rounded-xl shadow-md transition transform hover:scale-105 shrink-0">
+        + Ajouter une tâche
+    </a>
+
                 @if(session('success'))
                 <div id="success-popup"
                     class="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
@@ -127,10 +141,12 @@
         <div class="relative min-h-screen flex items-center justify-center p-4">
             <div class="relative bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl transform transition-all">
                 <div class="text-center">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Confirmar l'archivage</h3>
+                    <!-- <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                        <span class="text-red-600 text-xl">⚠️</span>
+                    </div> -->
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Confirmation d'archivage</h3>
                     <p class="text-sm text-gray-500 mb-6">
-                        Êtes-vous sûr de vouloir archiver la tâche : <br>
-                        <span id="task-title-modal" class="font-bold text-black"></span> ?
+                        <span id="task-title-modal" class="font-bold text-[#7CFC00]"></span> ?
                     </p>
                 </div>
 
