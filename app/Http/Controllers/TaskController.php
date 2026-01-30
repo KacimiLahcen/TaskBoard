@@ -66,7 +66,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        if ($task->user_id !== auth()->id()) ;
+        if ($task->user_id !== auth()->id()) abort(403);
 
         return view('tasks.edit', compact('task'));
     }

@@ -3,16 +3,38 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Mes Tâches') }}
         </h2>
+
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
-                <a href="{{ route('tasks.create') }}" 
-                   style="background-color: #7CFC00;" 
-                   class="hover:opacity-80 text-black font-bold py-2 px-4 rounded shadow">
+                <a href="{{ route('tasks.create') }}"
+                    style="background-color: #7CFC00;"
+                    class="hover:opacity-80 text-black font-bold py-2 px-4 rounded shadow">
                     + Ajouter une tâche
                 </a>
+                @if(session('success'))
+                <div id="success-popup" 
+         class="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
+        <div style="background-color: #7CFC00;" 
+             class="px-6 py-3 rounded-full shadow-2xl border border-black flex items-center space-x-2 animate-bounce">
+            <span class="text-lg">✅</span>
+            <p class="font-bold text-sm text-black whitespace-nowrap">
+                {{ session('success') }}
+            </p>
+        </div>
+    </div>
+                <script>
+                    setTimeout(() => {
+            const popup = document.getElementById('success-popup');
+            if(popup) {
+                popup.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => popup.remove(), 500);
+            }
+        }, 2500);
+                </script>
+                @endif
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
@@ -44,13 +66,13 @@
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                 <div class="flex items-center space-x-4">
-                                    <a href="{{ route('tasks.edit', $task) }}" 
-                                       class="text-blue-600 hover:text-blue-900 font-bold decoration-blue-500">
+                                    <a href="{{ route('tasks.edit', $task) }}"
+                                        class="text-blue-600 hover:text-blue-900 font-bold decoration-blue-500">
                                         Modifier
                                     </a>
 
                                     <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('Archiver cette tâche ?');" class="inline">
-                                        @csrf 
+                                        @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-900 font-bold">
                                             Archiver
@@ -66,7 +88,3 @@
         </div>
     </div>
 </x-app-layout>
-
-
-
-
