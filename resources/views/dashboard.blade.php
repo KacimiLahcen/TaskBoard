@@ -44,6 +44,7 @@
                             <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Titre</th>
                             <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Priorité</th>
                             <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Deadline</th>
                             <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
@@ -62,6 +63,12 @@
                                 <div class="flex items-center">
                                     <span class="h-2 w-2 rounded-full mr-2" style="background-color: #7CFC00;"></span>
                                     <span class="text-gray-700">{{ str_replace('_', ' ', $task->status) }}</span>
+                                </div>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                <div class="flex items-center">
+                                    <span class="h-2 w-2 rounded-full mr-2" style="background-color: #7CFC00;"></span>
+                                    <span class="text-gray-700">{{ str_replace('_', ' ', $task->deadline) }}</span>
                                 </div>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 text-sm">
