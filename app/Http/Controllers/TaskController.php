@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+// use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -33,10 +34,18 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'priority' => 'required|in:low,medium,high',
-            'deadline' => 'nullable|date|after_or_equal:today',
-        ],[
-        'deadline.after_or_equal' => '"Deadline" déja passee !',
-        ]);
+            // ]);
+            
+            //here  i use Caarbon to validate date (use carbon\carbon)
+            // if ($request->deadline && Carbon::parse($request->deadline)->isPast()) {
+            //     return back()->withErrors(['deadline' => 'Attention! "Deadline" déja passee ! ']);
+            // }
+
+                        //here does same as the the top, it belongs to carbon library too 
+                    'deadline' => 'nullable|date|after_or_equal:today',
+                ],[
+                'deadline.after_or_equal' => '"Deadline" déja passee !',
+                ]);
         
 
         auth()->user()->tasks()->create($validated);
@@ -57,7 +66,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        if ($task->user_id !== auth()->id()) abort(403);
+        if ($task->user_id !== auth()->id()) ;
 
         return view('tasks.edit', compact('task'));
     }
