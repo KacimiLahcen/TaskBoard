@@ -9,7 +9,19 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
-                
+                <form action="{{ route('dashboard') }}" method="GET" class="flex-1 max-w-sm">
+                    <div class="relative">
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Rechercher une mission..."
+                            class="w-full pl-10 pr-4 py-2 rounded-xl border-gray-300 focus:border-green-500 focus:ring focus:ring-green-200 transition">
+                        <div class="absolute left-3 top-2.5 text-gray-400">
+                            🔍
+                        </div>
+                        @if(request('search'))
+                        <a href="{{ route('dashboard') }}" class="absolute right-3 top-2 text-gray-400 hover:text-red-500">✖️</a>
+                        @endif
+                    </div>
+                </form>
 
                 <a href="{{ route('tasks.create') }}"
                     style="background-color: #7CFC00;"
