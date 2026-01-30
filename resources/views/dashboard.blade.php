@@ -9,6 +9,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
+                
+
                 <a href="{{ route('tasks.create') }}"
                     style="background-color: #7CFC00;"
                     class="hover:opacity-80 text-black font-bold py-2 px-4 rounded shadow">

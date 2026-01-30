@@ -11,9 +11,17 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = auth()->user()->tasks()->latest()->get();
+        $search = $request->query('search');
+
+
+        $tasks = auth()->user()->tasks()->when($search, function ($query, $search) {
+            return $query->where('title', 'like', "%{$search}%");
+        })
+        // ->latest()
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('dashboard', compact('tasks'));
     }
 
