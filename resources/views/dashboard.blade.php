@@ -15,24 +15,24 @@
                     + Ajouter une tâche
                 </a>
                 @if(session('success'))
-                <div id="success-popup" 
-         class="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
-        <div style="background-color: #7CFC00;" 
-             class="px-6 py-3 rounded-full shadow-2xl border border-black flex items-center space-x-2 animate-bounce">
-            <span class="text-lg">✅</span>
-            <p class="font-bold text-sm text-black whitespace-nowrap">
-                {{ session('success') }}
-            </p>
-        </div>
-    </div>
+                <div id="success-popup"
+                    class="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
+                    <div style="background-color: #7CFC00;"
+                        class="px-6 py-3 rounded-full shadow-2xl border border-black flex items-center space-x-2 animate-bounce">
+                        <span class="text-lg">✅</span>
+                        <p class="font-bold text-sm text-black whitespace-nowrap">
+                            {{ session('success') }}
+                        </p>
+                    </div>
+                </div>
                 <script>
                     setTimeout(() => {
-            const popup = document.getElementById('success-popup');
-            if(popup) {
-                popup.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-                setTimeout(() => popup.remove(), 500);
-            }
-        }, 2500);
+                        const popup = document.getElementById('success-popup');
+                        if (popup) {
+                            popup.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                            setTimeout(() => popup.remove(), 500);
+                        }
+                    }, 2500);
                 </script>
                 @endif
             </div>
@@ -74,9 +74,16 @@
                                     <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('Archiver cette tâche ?');" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900 font-bold">
+                                        <!-- <button type="submit" class="text-red-600 hover:text-red-900 font-bold">
+                                            Archiver
+                                        </button> -->
+
+                                        <button type="button"
+                                            onclick="openDeleteModal('{{ route('tasks.destroy', $task) }}', '{{ $task->title }}')"
+                                            class="text-red-600 hover:text-red-900 font-bold transition duration-150">
                                             Archiver
                                         </button>
+
                                     </form>
                                 </div>
                             </td>
@@ -87,4 +94,56 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+    <div id="delete-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+
+        <div class="relative min-h-screen flex items-center justify-center p-4">
+            <div class="relative bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl transform transition-all">
+                <div class="text-center">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Confirmar l'archivage</h3>
+                    <p class="text-sm text-gray-500 mb-6">
+                        Êtes-vous sûr de vouloir archiver la tâche : <br>
+                        <span id="task-title-modal" class="font-bold text-black"></span> ?
+                    </p>
+                </div>
+
+                <div class="flex flex-col space-y-2">
+                    <form id="delete-form" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-bold text-white hover:bg-red-700 focus:outline-none sm:text-sm transition">
+                            Oui, Archiver
+                        </button>
+                    </form>
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:text-sm">
+                        Annuler
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDeleteModal(actionUrl, taskTitle) {
+            document.getElementById('delete-form').action = actionUrl;
+            document.getElementById('task-title-modal').innerText = taskTitle;
+            document.getElementById('delete-modal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').classList.add('hidden');
+        }
+    </script>
+
+
+
+
 </x-app-layout>
