@@ -50,8 +50,10 @@
                             <input type="date" name="deadline" value="{{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('Y-m-d') : '' }}"
                                    class="w-full rounded-xl border-gray-300">
 
-                                   
-
+                                   @error('deadline')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                    
                         </div>
                     </div>
 
